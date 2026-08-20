@@ -18,16 +18,15 @@
         <%= list.country %><br />
         <i><%= list.description %></i><br />
       </p> 
-      
+      <% if(currUser && list.owner._id.equals(currUser._id)) {%>
       <div class="btns mt-3">
         <a href="/listings/<%=list._id %>/edit" class="btn btn-dark edit-button"
-          >Edit</a
-        >
+          >Edit</a>
         <form action="/listings/<%=list._id %>?_method=DELETE" method="POST">
           <button class="btn btn-dark">delete</button>
         </form>
       </div>
-        
+        <%} %>
    </div>
   </div>
 
@@ -37,8 +36,9 @@
     <% list.reviews.map((rev)=> { %>
       <div class="card mb-2">
         <div class="card-body">
+          <h6><i><%=rev.author.username %></i></h6>
           <h5 class="card-title">
-            <%= rev.comment %>
+            <%=rev.comment %>
           </h5>
           <p class="card-text mb-1">
             Rating: <span class="badge bg-dark">
@@ -52,15 +52,17 @@
               <%= rev.createdAt?rev.createdAt.toLocaleString("en-IN"):"N/A" %>
             </small>
           </p>
+         <%if(rev.author.equals(currUser)) {%>
         <form action="/listings/<%= list._id %>/reviews/<%=rev._id%>?_method=DELETE" method="POST">
             <button class="btn btn-dark btn-sm">delete</button>
         </form>
+        <%} %>
          </div>
       </div>
       <% }) %>
   </div>
 </div>
-
+<%if(currUser) {%>
  <hr class="mt-4">
   <div class="col-8 offset-1 mb-3">
     <h4>Leave A Review</h4>
@@ -83,4 +85,5 @@
       <button class="btn btn-outline-dark">Submit</button>
     </form>
     </div>
+    <%}%>
  </div>

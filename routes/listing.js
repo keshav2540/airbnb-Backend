@@ -27,7 +27,13 @@ list.get(
     const { id } = req.params;
     const list = await listing
       .findById(id)
-      .populate("reviews")
+      .populate(
+        {path :"reviews",
+        populate:{
+          path:"author"
+        }
+         }
+         )
       .populate("owner");
     if (!list) {
       req.flash("error", "Listing you request for does not exist");

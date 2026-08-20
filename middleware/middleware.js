@@ -4,10 +4,10 @@ const { listingSchema, reviewSchema } = require("../validation/schemajoi");
 const ExpressError = require("../utils/expressError");
 module.exports.isLoggedIn = (req, res, next) => {
   console.log(req.user, "..", req.path, " ..", req.originalUrl);
-
   if (!req.isAuthenticated()) {
-    req.session.redirectUrl = req.originalUrl;
-    console.log(req.session.redirectUrl);
+     if (req.method === "GET") {
+   req.session.redirectUrl = req.originalUrl;
+     }
     req.flash("error", "you must be logged in to create listing");
     return res.redirect("/login");
   }
@@ -51,9 +51,9 @@ module.exports.validateListing = (req, res, next) => {
 module.exports.isOwner = async (req, res, next) => {
   let { id } = req.params;
   let list = await listing.findById(id);
-  if (!req.user && list.owner._id.equals(res.locals.currUser._id)) {
+  if (!req.user || !list.owner._id.equals(res.locals.currUser._id)) {
     req.flash("error", "you dont have permission to edit owner is diffrent");
-    res.redirect(`/listings/${id}`);
+   return  res.redirect(`/listings/${id}`);
   }
   next();
 };

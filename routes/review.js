@@ -3,10 +3,11 @@ const express = require("express");
 const review = express.Router({ mergeParams: true });
 const listing = require("../model/Listing");
 const Review = require("../model/review");
-const { validatereview } = require("../middleware/middleware");
+const { validatereview, isLoggedIn } = require("../middleware/middleware");
 //joy function
 review.post(
   "/",
+  isLoggedIn,
   validatereview,
   wrapAsync(async (req, res) => {
     console.log(req.params);
@@ -14,6 +15,7 @@ review.post(
     const list = await listing.findById(id);
     let newReview = new Review(req.body.review);
     list.reviews.push(newReview);
+    newReview.author=req.user._id;
     await newReview.save();
     await list.save();
     req.flash("success", "New Review Added");
@@ -23,9 +25,14 @@ review.post(
 // /using pull op
 review.delete(
   "/:reviewid",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { listid, reviewid } = req.params;
-    console.log(listid, reviewid);
+    let reviewINFO=await Review.findById(reviewid).populate("author");
+    if(reviewINFO && !req.user._id.equals(reviewINFO.author._id)){
+      req.flash("error","author can delete this review");
+      return res.redirect(`/listings/${listid}`);
+    }
     await listing.findByIdAndUpdate(listid, { $pull: { reviews: reviewid } });
     await Review.findByIdAndDelete(reviewid);
     req.flash("success", "review Deleted");
