@@ -1,0 +1,86 @@
+<%-layout('layout/boilerplate') %>
+
+<div class="row mt-3">
+  <div class="col-10 offset-1 show-card">
+    <h3><%= list.title %></h3>
+  </div>
+  <div class="card col-5 offset-1 listing-card">
+    <img
+      src="<%=list.image.url%>"
+      class="card-img-top show-img"
+      alt="listimage"
+    />
+    <div class="card-body">
+      <p class="card-text">      
+         Owner :<i><%= list.owner.username %></i><br>
+        &#8377;<%= list.price.toLocaleString('en-IN')%><br />
+        <%= list.location %><br />
+        <%= list.country %><br />
+        <i><%= list.description %></i><br />
+      </p> 
+      
+      <div class="btns mt-3">
+        <a href="/listings/<%=list._id %>/edit" class="btn btn-dark edit-button"
+          >Edit</a
+        >
+        <form action="/listings/<%=list._id %>?_method=DELETE" method="POST">
+          <button class="btn btn-dark">delete</button>
+        </form>
+      </div>
+        
+   </div>
+  </div>
+
+<div class="col-5 reviews">
+  <i><h6 class="mb-3">Reviews</h6></i>
+  <div class="reviews-scroll">
+    <% list.reviews.map((rev)=> { %>
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= rev.comment %>
+          </h5>
+          <p class="card-text mb-1">
+            Rating: <span class="badge bg-dark">
+              <%= rev.rating %>/5
+            </span>
+            <span style="color: #FFD700; font-size: 24px;">&#9733;</span>
+
+          </p>
+          <p class="card-text">
+            <small class="text-muted">
+              <%= rev.createdAt?rev.createdAt.toLocaleString("en-IN"):"N/A" %>
+            </small>
+          </p>
+        <form action="/listings/<%= list._id %>/reviews/<%=rev._id%>?_method=DELETE" method="POST">
+            <button class="btn btn-dark btn-sm">delete</button>
+        </form>
+         </div>
+      </div>
+      <% }) %>
+  </div>
+</div>
+
+ <hr class="mt-4">
+  <div class="col-8 offset-1 mb-3">
+    <h4>Leave A Review</h4>
+    <form action="/listings/<%=list._id%>/reviews" method="post" novalidate class="needs-validation">
+      <div>
+        <label for="rating" class="form-label"> Rating</label>
+        <input class="form-range"type="range" min="1" max="5" id="rating"name="review[rating]">
+      </div>
+      <div>
+        <label for="comment"  class="form-label"> Comments</label>
+        <textarea  id="comment"name="review[comment]" cols="40" rows="5" class="form-control " required></textarea>
+          <div class="invalid-feedback">
+            Please provide a comment on this
+          </div>
+          <div class="valid-feedback">
+            thanks for yours feedback
+          </div>
+      </div>
+      <br>
+      <button class="btn btn-outline-dark">Submit</button>
+    </form>
+    </div>
+ </div>

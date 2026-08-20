@@ -1,0 +1,86 @@
+<%-layout('layout/boilerplate') %> <br /><br />
+<div class="row">
+  <div class="col-8 offset-2">
+    <form action="/listings" method="POST" novalidate class="needs-validation">
+      <h1>Create a New Listing</h1>
+      <div>
+        <label for="title"> Title</label><br />
+        <input
+          type="text"
+          placeholder="Add a catchy title"
+          name="title"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please provide a valid title</div>
+        <br />
+      </div>
+      <div class="mb-3">
+        <label for="image">enter Image url</label><br />
+        <input
+          type="text"
+          placeholder="image link"
+          id="image"
+          name="image"
+          class="form-control"
+        />
+      </div>
+      <div class="row">
+        <div class="mb-3 col-md-4">
+          <label for="price">price</label><br />
+          <input
+            type="number"
+            placeholder="1500"
+            id="price"
+            name="price"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Please provide a valid price</div>
+        </div>
+        <div class="mb-3 col-md-8">
+          <label for="country">country</label><br />
+          <input
+            type="text"
+            placeholder="India"
+            id="country"
+            name="country"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Please provide a valid country</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location">location</label><br />
+        <input
+          type="text"
+          placeholder="Jaipur,Rajasthan"
+          id="location"
+          name="location"
+          class="form-control"
+          required
+        />
+        <div class="invalid-feedback">Please provide a valid location</div>
+      </div>
+      <div class="mb-3">
+        <label for="description">description </label><br />
+        <textarea
+          placeholder="about house"
+          id="description"
+          name="description"
+          class="form-control"
+          required
+        ></textarea>
+        <div class="invalid-feedback">Please provide a valid description</div>
+        <br />
+      </div>
+      <br />
+
+      <button class="btn btn-dark add-button" type="submit">submit</button
+      ><br /><br /><br />
+    </form>
+  </div>
+</div>

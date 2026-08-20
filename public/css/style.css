@@ -1,0 +1,92 @@
+body{
+      font-family: "Plus Jakarta Sans", sans-serif;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+}
+.container{
+   flex:1; 
+}
+.navbar{
+    height:5rem;
+    background-color:white;
+}
+.fa-compass{
+    color:#fe424d;
+    font-size: 2rem;
+}
+.nav-link{
+    color:#222222 !important;
+}
+.f-info-link a{
+    text-decoration: none;  
+    color: #222222;
+}
+.f-info-link a:hover{
+    text-decoration: underline;
+}
+.f-info-link,.f-info-socials,.f-info-brand{
+      width: 100%;
+       display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.f-info-socials i{
+    font-size: 1.2rem;
+    margin-right: 1rem;
+}
+.f-info{
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.listing-card{
+    border:none;
+    margin-bottom: 2rem;
+}
+.card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+.card{
+    padding: 0;
+}
+.card-text{
+      font-weight: 400;}
+.list-link{
+text-decoration: none;
+}
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.4;
+    background-color: #ebebeb;
+}
+.add-button{
+    background-color:#fe424d !important;
+    border:none !important;
+}
+.edit-button{
+        background-color:#fe424d !important;
+    border:none !important;
+}
+.show-img{
+    height: 30%;
+}
+.btns{
+    display: flex;
+    gap:0.5rem
+}
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}
+.reviews-scroll {
+  max-height:500px;
+  overflow-y: auto;
+}
