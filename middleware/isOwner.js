@@ -1,4 +1,4 @@
-const listing = require("../model/Listing");
+const listing = require("../models/Listing");
 module.exports = async (req, res, next) => {
   let { id } = req.params;
   let list = await listing.findById(id);

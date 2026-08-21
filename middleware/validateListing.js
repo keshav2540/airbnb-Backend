@@ -1,4 +1,4 @@
-const { listingSchema } = require("../validation/schemajoi");
+const { listingSchema } = require("../validations/schemajoi");
 const ExpressError = require("../utils/expressError");
 module.exports = (req, res, next ) => {
   let list = req.body;

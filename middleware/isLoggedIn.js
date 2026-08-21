@@ -1,5 +1,5 @@
 module.exports = (req, res, next) => {
-  console.log(req.user, "..", req.path, " ..", req.originalUrl);
+  // console.log(req.user, "..", req.path, " ..", req.originalUrl);
   if (!req.isAuthenticated()) {
     if (req.method === "GET") {
       req.session.redirectUrl = req.originalUrl;

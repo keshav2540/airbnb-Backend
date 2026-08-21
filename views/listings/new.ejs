@@ -1,9 +1,9 @@
 <%-layout('layout/boilerplate') %> <br /><br />
 <div class="row">
   <div class="col-8 offset-2">
-    <form action="/listings" method="POST" novalidate class="needs-validation">
+    <form action="/listings" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
       <h1>Create a New Listing</h1>
-      <div>
+      <div class="mb-3">
         <label for="title"> Title</label><br />
         <input
           type="text"
@@ -17,13 +17,13 @@
         <br />
       </div>
       <div class="mb-3">
-        <label for="image">enter Image url</label><br />
+        <label for="image">upload listing Image</label><br />
         <input
-          type="text"
-          placeholder="image link"
+          type="file"
           id="image"
           name="image"
           class="form-control"
+          accept=".png, .jpg, .jpeg"
         />
       </div>
       <div class="row">
