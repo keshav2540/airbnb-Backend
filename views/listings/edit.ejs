@@ -2,7 +2,7 @@
 <br>
 <div class="row">
     <div class="col-8 offset-2">
-    <form action="/listings/<%=list._id %>?_method=PUT"  method="POST" novalidate class="needs-validation">
+    <form action="/listings/<%=list._id %>?_method=PUT"  method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
         <h1> Edit House Details</h1>
         <div> <label for="title"> Title</label><br>
             <input type="text" placeholder="Add a catchy title" name="title" class="form-control"    value="<%= list.title %>" required />
@@ -13,10 +13,16 @@
                 Please provide a valid title
             </div><br>
         </div>
-        <div class="mb-3">
-            <label for="image">enter Image url</label><br>
-            <input type="text" placeholder="image link" id="image" name="image" class="form-control"  value="<%= list.image.url %>" />
+        <div class="mb-3">   
+            Original Listing Image<br>
+        <div style="width: 20rem;">
+            <img src="<%=originalImage%>" class="card-img-top" alt="<%=list.image.filename %>" >
         </div>
+    </div>
+    <div class="mb-3">
+        <label for="image">upload listing Image</label><br />
+        <input type="file" id="image" name="image" class="form-control" accept=".png, .jpg, .jpeg" />
+    </div>
         <div class="row">
             <div class="mb-3 col-md-4">
                 <label for="price">price</label><br>
