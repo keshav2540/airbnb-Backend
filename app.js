@@ -11,16 +11,26 @@ const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 const MONGO_URL = process.env.MONGO_URL;
 const app = express();
-const Port = process.env.Port||5000;
+const Port = process.env.Port||5001;
 const list = require("./routes/listing");
 const review = require("./routes/review");
 const ExpressError = require("./utils/expressError");
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;;
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const userRouter = require("./routes/user");
+
+let store=MongoStore.create({
+    mongoUrl:MONGO_URL,
+    crypto:{
+      secret:"hello meow meow"
+    },
+    touchAfter:24*3600,
+  });
+
 const sessionOption = {
   secret: "mysecret",
   resave: false,
@@ -29,9 +39,12 @@ const sessionOption = {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    // expires:Date.now()+7*24*60*60*1000, weak
   },
+  store,
 };
+  store.on("error",()=>{
+    console.log("ERROR in session Store")
+  })
 main()
   .then(() => {
     console.log("connectd to db");
@@ -73,9 +86,6 @@ app.get("/demouser", async (req, res) => {
 async function main() {
   await mongoose.connect(MONGO_URL);
 }
-app.get("/", (req, res) => {
-  console.log("meow");
-});
 app.use("/listings", list);
 app.use("/listings/:listid/reviews", review);
 app.use("/", userRouter);
