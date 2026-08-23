@@ -1,10 +1,10 @@
 if(process.env.NODE_ENV !="production")
   {
     require("dotenv").config({ quiet: true });
+    const dns = require("dns");
+    dns.setServers(["8.8.8.8", "8.8.4.4"]);
   }
 const express = require("express");
-const dns = require("dns");
-dns.setServers(["8.8.8.8", "8.8.4.4"]);
 const path = require("path");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
